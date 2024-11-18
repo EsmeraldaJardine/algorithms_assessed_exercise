@@ -65,6 +65,7 @@ def crawl_folder(folder
 def sanitize_word(word):
     """
     Removes all non ascii characters from a given word 
+    ^ does this mean remove all non-ascii characters from a word or only keep alphanumeric characters?
     """    
     new_word = ''
     word = word.lower()
