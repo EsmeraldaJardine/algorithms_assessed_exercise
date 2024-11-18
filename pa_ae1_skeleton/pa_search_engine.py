@@ -69,7 +69,7 @@ def sanitize_word(word):
     """    
     new_word = ''
     word = word.lower()
-    new_word = ''.join(filter(str.isascii, word))
+    new_word = ''.join(filter(str.isalnum, word))
 
     return(new_word)
 
