@@ -64,11 +64,13 @@ def crawl_folder(folder
 #%%----------------------------------------------------------------------------
 def sanitize_word(word):
     """
-    Removes all non ascii characters from a given word
+    Removes all non ascii characters from a given word 
     """    
-    newword = ""
-    <YOUR-CODE-HERE>
-    return(newword)
+    new_word = ''
+    word = word.lower()
+    new_word = ''.join(filter(string.isascii(), word))
+
+    return(new_word)
 
 #%%----------------------------------------------------------------------------
 def parse_line(line):
