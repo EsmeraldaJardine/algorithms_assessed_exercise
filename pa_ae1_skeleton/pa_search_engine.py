@@ -68,7 +68,7 @@ def sanitize_word(word):
     """    
     new_word = ''
     word = word.lower()
-    new_word = ''.join(filter(string.isascii(), word))
+    new_word = ''.join(filter(str.isascii, word))
 
     return(new_word)
 
@@ -82,11 +82,11 @@ def parse_line(line):
     HINT: Consider using the "strip()" and "split()" function here
     
     """    
-    
-    <YOUR-CODE-HERE>
+    list_of_words = [sanitize_word(word) for word in line.strip().split()]
     return(list_of_words)
 
 #%%----------------------------------------------------------------------------
+'''
 def index_file  (filename
                 ,filepath
                 ,forward_index
@@ -130,3 +130,4 @@ def search  (search_phrase
     <YOUR-CODE-HERE>           
 
     return(sorted_result)
+'''
