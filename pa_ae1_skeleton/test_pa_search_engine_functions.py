@@ -14,9 +14,11 @@ class test_parse_line(unittest.TestCase):
         line_1 = 'hello world'
         line_2 = 'HELLO WORLD'
         line_3 = '   hello,    world   '
+        line4 = ''
         self.assertEqual(parse_line(line_1), ['hello', 'world'])
         self.assertEqual(parse_line(line_2), ['hello', 'world'])
         self.assertEqual(parse_line(line_3), ['hello', 'world'])
+        self.assertEqual(parse_line(line4), [])
 
 class test_index_file(unittest.TestCase):
     def test_extract_file_lines(self):

@@ -83,7 +83,11 @@ def parse_line(line):
     HINT: Consider using the "strip()" and "split()" function here
     
     """    
-    list_of_words = [sanitize_word(word) for word in line.strip().split()]
+    list_of_words = []
+    for word in line.strip().split():
+        sanitized_word = sanitize_word(word)
+        if sanitized_word and sanitized_word != '':
+            list_of_words.append(sanitized_word)   
     return(list_of_words)
 
 #%%----------------------------------------------------------------------------
@@ -91,8 +95,9 @@ def extract_file_lines(filepath):
     lines = []
     with open(filepath, 'r', encoding="utf-8") as f:
         for line in f:
-            lines.append(parse_line(line))
-
+            sanitized_line = parse_line(line)
+            if sanitized_line: #check if the line is not empty
+                lines.append(sanitized_line)
     return(lines)
 
 #%%----------------------------------------------------------------------------

@@ -4,5 +4,6 @@ TEST file
           the 
                 file
 !!!!
+ok    , 
 
-ok, done!
+done!
