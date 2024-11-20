@@ -97,7 +97,9 @@ def extract_file_lines(filepath):
         for line in f:
             sanitized_line = parse_line(line)
             if sanitized_line: #check if the line is not empty
-                lines.append(sanitized_line)
+                for word in sanitized_line:
+                    lines.append(word)
+                #lines.append(sanitized_line)
     return(lines)
 
 #%%----------------------------------------------------------------------------
@@ -118,6 +120,7 @@ def index_file  (filename
 
         the parameters forward_index, invert_index, term_freq, doc_rank are all dictionaries to be populated 
     """ 
+
 
     start = timer()
     
