@@ -87,7 +87,16 @@ def parse_line(line):
     return(list_of_words)
 
 #%%----------------------------------------------------------------------------
-'''
+def extract_file_lines(filepath):
+    lines = []
+    with open(filepath, 'r', encoding="utf-8") as f:
+        for line in f:
+            lines.append(parse_line(line))
+
+    return(lines)
+
+#%%----------------------------------------------------------------------------
+
 def index_file  (filename
                 ,filepath
                 ,forward_index
@@ -96,21 +105,23 @@ def index_file  (filename
                 ,doc_rank
                 ):
     """    
-    Given a file, indexes it by calculating its:
+    Given a file, index it by calculating its:
         forward_index
         term_freq
         doc_rank
-        and updates the invert_index (which is calculated across all files)
-    """
+        and update the invert_index (which is calculated across all files)
+
+        the parameters forward_index, invert_index, term_freq, doc_rank are all dictionaries to be populated 
+    """ 
+
     start = timer()
-    with open(filepath, 'r', encoding="utf-8") as f:
     
-    <YOUR-CODE-HERE>           
     
     end = timer()
     print("Time taken to index file: ", filename, " = ", end-start)
 
 #%%----------------------------------------------------------------------------
+'''
 def search  (search_phrase
              ,forward_index
              ,invert_index

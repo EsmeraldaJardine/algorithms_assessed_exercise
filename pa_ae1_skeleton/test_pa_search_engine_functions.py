@@ -1,5 +1,6 @@
+import os
 import unittest
-from pa_search_engine import sanitize_word, parse_line
+from pa_search_engine import sanitize_word, parse_line, extract_file_lines
 
 class test_sanitize_word(unittest.TestCase):
     def test_sanitize_word(self):
@@ -16,6 +17,12 @@ class test_parse_line(unittest.TestCase):
         self.assertEqual(parse_line(line_1), ['hello', 'world'])
         self.assertEqual(parse_line(line_2), ['hello', 'world'])
         self.assertEqual(parse_line(line_3), ['hello', 'world'])
+
+class test_index_file(unittest.TestCase):
+    def test_extract_file_lines(self):
+        filepath = os.path.join(os.getcwd(), 'pa_ae1_skeleton','test_dir', 'test_file.txt')
+        print(extract_file_lines(filepath))
+        
 
 
 if __name__ == '__main__':
