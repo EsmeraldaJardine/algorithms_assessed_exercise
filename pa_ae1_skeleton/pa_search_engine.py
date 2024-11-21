@@ -21,7 +21,7 @@ import os
 
 #%%----------------------------------------------------------------------------
 def dict_to_file(di, fi):
-    with open(fi, "w") as f:
+    with open(fi, "w", encoding="utf-8") as f:
         for key, value in di.items():
             f.write("%s:%s\n" % (key, value))
 
@@ -51,6 +51,7 @@ def crawl_folder(folder
     """
     
     total_docs = 0
+    os.chdir('pa_ae1_skeleton')
     for file in os.scandir(folder):
         if file.is_file():
             total_docs += 1
