@@ -190,8 +190,14 @@ def search  (search_phrase
                 weight_multiplier *= term_freq[filename][word] * inv_doc_freq[word]
                 print(f"term_freq{filename} {word}: ", term_freq[filename][word])
                 print(f"inv_doc_freq {word}: ", inv_doc_freq[word])
-        
+
                 result[filename] = weight_multiplier * doc_rank[filename]
+            else:
+                result[filename] = 0
+                break
+            # add a break statement to break out of the loop if the word is not in the term_freq or inv_doc_freq
+            # it is not clearly stated in the pdf for this project but the search requires the WHOLE
+            # query to be present in the document for it to display in the results
 
 
 #
