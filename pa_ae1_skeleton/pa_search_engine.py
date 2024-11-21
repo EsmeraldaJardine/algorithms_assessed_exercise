@@ -179,15 +179,22 @@ def search  (search_phrase
     """
     
     query_words = parse_line(search_phrase)
+    print("Query words:", query_words)
     result = {}
     for filename in forward_index.keys():
         result[filename] = 0
         for word in query_words:
-            result[filename] += term_freq[filename][word] * inv_doc_freq[word]
+             if word in term_freq[filename] and word in inv_doc_freq:
+                result[filename] *= term_freq[filename][word] * inv_doc_freq[word]
         
         result[filename] *= doc_rank[filename]
-    
+
+
+#
+    #print("Result:", result)
+    print('*************************************')
     sorted_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+    print_result(sorted_result)
     # this will return a list of tuples, with the first element being the filename and the second element being the weight
     # the lambda function sorts the list of tuples by the second element in the tuple, which is the weight
     # the reverse=True argument sorts the list in descending order
