@@ -110,15 +110,14 @@ def invert_index_to_file(word, filename, invert_index):
     
     return invert_index
 #%%----------------------------------------------------------------------------
-def term_freq_to_file(word, filename, term_freq, individual_word_count):
+def term_freq_to_file(word, individual_word_count):
+    
         if word in individual_word_count:
             individual_word_count[word] += 1
         else:
             individual_word_count[word] = 1
         
-        #term_freq[word] = individual_word_count[word] / len(individual_word_count)
-        
-        return term_freq
+
 #%%----------------------------------------------------------------------------
 
 def index_file  (filename
@@ -142,20 +141,19 @@ def index_file  (filename
     individual_word_count = {}
     forward_index[filename] = file_words
     #print("Forward Index: ", forward_index)
+    term_freq[filename] = {}
 
     for word in file_words:
-        invert_index_to_file(word, filename, invert_index)
+        invert_index_to_file(word, filename, invert_index) 
         
-        term_freq_to_file(word, filename, term_freq, individual_word_count)
-        term_freq[word] = individual_word_count[word] / len(file_words)
-        print(f'sums {word}', individual_word_count[word] / len(file_words))
-        # issue with term_freq, it is not updating correctly is it being overwritten each time in the loop and overall_word_count is not finalised
+        term_freq_to_file(word, individual_word_count)
+        term_freq[filename][word] = individual_word_count[word] / len(file_words)
+       
         
     #print(f"Invert Index {filename}: ", invert_index)
     print(f"Term Frequency {filename}: ", term_freq)
-    print(individual_word_count)
-    print(len(individual_word_count))
-    print(len(file_words))
+    #print(individual_word_count)
+    #print(len(file_words))
 
 
 
