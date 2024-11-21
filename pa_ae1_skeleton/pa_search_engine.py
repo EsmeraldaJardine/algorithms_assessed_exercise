@@ -103,6 +103,23 @@ def extract_file_lines(filepath):
     return(lines)
 
 #%%----------------------------------------------------------------------------
+def invert_index_to_file(word, filename, invert_index):
+    invert_index[word] = []
+    if filename not in invert_index[word]:
+        invert_index[word].append(filename) # can maybe clean this up
+    
+    return invert_index
+#%%----------------------------------------------------------------------------
+def term_freq_to_file(word, filename, term_freq, individual_word_count):
+        if word in individual_word_count:
+            individual_word_count[word] += 1
+        else:
+            individual_word_count[word] = 1
+        
+        #term_freq[word] = individual_word_count[word] / len(individual_word_count)
+        
+        return term_freq
+#%%----------------------------------------------------------------------------
 
 def index_file  (filename
                 ,filepath
@@ -120,13 +137,52 @@ def index_file  (filename
 
         the parameters forward_index, invert_index, term_freq, doc_rank are all dictionaries to be populated 
     """ 
-
-
     start = timer()
+    file_words = extract_file_lines(filepath) #might want to change the name of this function as it extracts words not lines
+    individual_word_count = {}
+    overall_word_count = 0
+    forward_index[filename] = file_words
+    #print("Forward Index: ", forward_index)
+
+    for word in file_words:
+        overall_word_count += 1
+        invert_index_to_file(word, filename, invert_index)
+        
+        term_freq_to_file(word, filename, term_freq, individual_word_count)
+        term_freq[word] = individual_word_count[word] / overall_word_count
+        print(f'sums {word}', individual_word_count[word] / overall_word_count)
+        # issue with term_freq, it is not updating correctly is it being overwritten each time in the loop and overall_word_count is not finalised
+        
+    #print(f"Invert Index {filename}: ", invert_index)
+    print(f"Term Frequency {filename}: ", term_freq)
+    print(individual_word_count)
+    print(len(individual_word_count))
+    print(overall_word_count)
+
+
+
+    ##for word in file_words:
+    ##    invert_index[word] = []
+    ##    if filename not in invert_index[word]:
+    ##        invert_index[word].append(filename) # can maybe clean this up
+    ##    print(f"Invert Index {filename}: ", invert_index)
+    ##for word in file_words:
+    ##    individual_word_count = {}
+    ##    if word in individual_word_count:
+    ##        individual_word_count[word] += 1
+    ##    else:
+    ##        individual_word_count[word] = 1
+    ##    
+    ##    term_freq[word] = individual_word_count[word] / len(individual_word_count)
+
+
+
+
+
     
     
     end = timer()
-    print("Time taken to index file: ", filename, " = ", end-start)
+  #  print("Time taken to index file: ", filename, " = ", end-start)
 
 #%%----------------------------------------------------------------------------
 '''
