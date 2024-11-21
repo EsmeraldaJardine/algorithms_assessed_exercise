@@ -162,7 +162,7 @@ def index_file  (filename
     #print(len(file_words))
 
 #%%----------------------------------------------------------------------------
-'''
+
 def search  (search_phrase
              ,forward_index
              ,invert_index
@@ -177,10 +177,18 @@ def search  (search_phrase
     to arrive at a final weight for a given query, for every document. 
     """
     
-    words = parse_line(search_phrase)
+    query_words = parse_line(search_phrase)
     result = {}
-
-    <YOUR-CODE-HERE>           
+    for filename in forward_index.keys():
+        result[filename] = 0
+        for word in query_words:
+            result[filename] += term_freq[filename][word] * inv_doc_freq[word]
+        
+        result[filename] *= doc_rank[filename]
+    
+    sorted_result = sorted(result.values(), reverse=True)
+    # this does not return the filename, only the weights
+    # need to find a way to return the associated filename with the weight
+      
 
     return(sorted_result)
-'''
