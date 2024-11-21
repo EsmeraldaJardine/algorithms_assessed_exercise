@@ -138,51 +138,28 @@ def index_file  (filename
     """ 
     start = timer()
     file_words = extract_file_lines(filepath) #might want to change the name of this function as it extracts words not lines
-    individual_word_count = {}
+   
     forward_index[filename] = file_words
-    #print("Forward Index: ", forward_index)
-    term_freq[filename] = {}
+    doc_rank[filename] = 1 / len(file_words)
 
+
+    term_freq[filename] = {}
+    individual_word_count = {}
     for word in file_words:
         invert_index_to_file(word, filename, invert_index) 
         
         term_freq_to_file(word, individual_word_count)
         term_freq[filename][word] = individual_word_count[word] / len(file_words)
+
     
-    return forward_index, invert_index, term_freq
+    end = timer()
+    print("Time taken to index file: ", filename, " = ", end-start)
+    return filename, filepath, forward_index, invert_index, term_freq ,doc_rank
     
     #print(f"Invert Index {filename}: ", invert_index)
     #print("Term Frequency" , term_freq)
     #print(individual_word_count)
     #print(len(file_words))
-
-
-
-
-
-
-    ##for word in file_words:
-    ##    invert_index[word] = []
-    ##    if filename not in invert_index[word]:
-    ##        invert_index[word].append(filename) # can maybe clean this up
-    ##    print(f"Invert Index {filename}: ", invert_index)
-    ##for word in file_words:
-    ##    individual_word_count = {}
-    ##    if word in individual_word_count:
-    ##        individual_word_count[word] += 1
-    ##    else:
-    ##        individual_word_count[word] = 1
-    ##    
-    ##    term_freq[word] = individual_word_count[word] / len(individual_word_count)
-
-
-
-
-
-    
-    
-    end = timer()
-  #  print("Time taken to index file: ", filename, " = ", end-start)
 
 #%%----------------------------------------------------------------------------
 '''
