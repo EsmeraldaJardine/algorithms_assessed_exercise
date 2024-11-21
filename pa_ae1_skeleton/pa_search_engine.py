@@ -15,7 +15,6 @@ AS LONG AS IT REMAINS COMPATIBLE WITH main.py and tester.py
 #%% ---------------------------------------------------------------------------
 # Required Imports
 #------------------------------------------------------------------------------
-import string
 from timeit import default_timer as timer
 import os
 
@@ -100,7 +99,6 @@ def extract_file_lines(filepath):
             if sanitized_line: #check if the line is not empty
                 for word in sanitized_line:
                     lines.append(word)
-                #lines.append(sanitized_line)
     return(lines)
 
 #%%----------------------------------------------------------------------------
@@ -156,11 +154,6 @@ def index_file  (filename
     end = timer()
     print("Time taken to index file: ", filename, " = ", end-start)
     return filename, filepath, forward_index, invert_index, term_freq ,doc_rank
-    
-    #print(f"Invert Index {filename}: ", invert_index)
-    #print("Term Frequency" , term_freq)
-    #print(individual_word_count)
-    #print(len(file_words))
 
 #%%----------------------------------------------------------------------------
 
@@ -179,7 +172,6 @@ def search  (search_phrase
     """
     
     query_words = parse_line(search_phrase)
-    print("Query words:", query_words)
     result = {}
     
     for filename in forward_index.keys():
@@ -188,8 +180,6 @@ def search  (search_phrase
             if word in term_freq[filename] and word in inv_doc_freq:
                 #check to avoid key errors when word is not in term_freq or inv_doc_freq
                 weight_multiplier *= term_freq[filename][word] * inv_doc_freq[word]
-                print(f"term_freq{filename} {word}: ", term_freq[filename][word])
-                print(f"inv_doc_freq {word}: ", inv_doc_freq[word])
 
                 result[filename] = weight_multiplier * doc_rank[filename]
             else:
@@ -200,9 +190,6 @@ def search  (search_phrase
             # query to be present in the document for it to display in the results
 
 
-#
-    #print("Result:", result)
-    print('*************************************')
     sorted_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
     #print_result(sorted_result)
     # this will return a list of tuples, with the first element being the filename and the second element being the weight
