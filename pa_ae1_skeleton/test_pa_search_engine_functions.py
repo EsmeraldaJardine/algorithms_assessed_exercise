@@ -28,9 +28,10 @@ class test_index_file(unittest.TestCase):
     invert_index = {}
     term_freq = {}
     doc_rank = {}
+    individual_word_count = {}
     
     def test_extract_file_lines(self):
-       ##print(extract_file_lines(test_index_file.filepath))
+        print(extract_file_lines(test_index_file.filepath1))
         print()
 
     def test_index_file_forward_index(self):
@@ -42,7 +43,7 @@ class test_index_file(unittest.TestCase):
         invert_index_to_file('test', test_index_file.filepath1, test_index_file.invert_index)
 
     def test_freq_to_file(self):
-        term_freq_to_file('test', test_index_file.filepath1, test_index_file.term_freq)
+        term_freq_to_file('test', test_index_file.filepath1, test_index_file.term_freq, test_index_file.individual_word_count)
 
         
         

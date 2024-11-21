@@ -140,24 +140,22 @@ def index_file  (filename
     start = timer()
     file_words = extract_file_lines(filepath) #might want to change the name of this function as it extracts words not lines
     individual_word_count = {}
-    overall_word_count = 0
     forward_index[filename] = file_words
     #print("Forward Index: ", forward_index)
 
     for word in file_words:
-        overall_word_count += 1
         invert_index_to_file(word, filename, invert_index)
         
         term_freq_to_file(word, filename, term_freq, individual_word_count)
-        term_freq[word] = individual_word_count[word] / overall_word_count
-        print(f'sums {word}', individual_word_count[word] / overall_word_count)
+        term_freq[word] = individual_word_count[word] / len(file_words)
+        print(f'sums {word}', individual_word_count[word] / len(file_words))
         # issue with term_freq, it is not updating correctly is it being overwritten each time in the loop and overall_word_count is not finalised
         
     #print(f"Invert Index {filename}: ", invert_index)
     print(f"Term Frequency {filename}: ", term_freq)
     print(individual_word_count)
     print(len(individual_word_count))
-    print(overall_word_count)
+    print(len(file_words))
 
 
 
