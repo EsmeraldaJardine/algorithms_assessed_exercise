@@ -186,9 +186,10 @@ def search  (search_phrase
         
         result[filename] *= doc_rank[filename]
     
-    sorted_result = sorted(result.values(), reverse=True)
-    # this does not return the filename, only the weights
-    # need to find a way to return the associated filename with the weight
+    sorted_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+    # this will return a list of tuples, with the first element being the filename and the second element being the weight
+    # the lambda function sorts the list of tuples by the second element in the tuple, which is the weight
+    # the reverse=True argument sorts the list in descending order
       
 
     return(sorted_result)
