@@ -104,11 +104,11 @@ def extract_file_lines(filepath):
 
 #%%----------------------------------------------------------------------------
 def invert_index_to_file(word, filename, invert_index):
-    invert_index[word] = []
+    if word not in invert_index:
+            invert_index[word] = []
     if filename not in invert_index[word]:
         invert_index[word].append(filename) # can maybe clean this up
-    
-    return invert_index
+
 #%%----------------------------------------------------------------------------
 def term_freq_to_file(word, individual_word_count):
     
@@ -148,12 +148,16 @@ def index_file  (filename
         
         term_freq_to_file(word, individual_word_count)
         term_freq[filename][word] = individual_word_count[word] / len(file_words)
-       
-        
+    
+    return forward_index, invert_index, term_freq
+    
     #print(f"Invert Index {filename}: ", invert_index)
-    print(f"Term Frequency {filename}: ", term_freq)
+    #print("Term Frequency" , term_freq)
     #print(individual_word_count)
     #print(len(file_words))
+
+
+
 
 
 
