@@ -88,13 +88,13 @@ def parse_line(line):
 
 #%%----------------------------------------------------------------------------
 def extract_file_words(filepath):
-    lines = []
+    line_words = []
     with open(filepath, 'r', encoding="utf-8") as f:
         for line in f:
             sanitized_line = parse_line(line)
             if sanitized_line:  # Check if the sanitized line is not empty
-                lines.extend(sanitized_line)
-    return(lines)
+                line_words.extend(sanitized_line)
+    return(line_words)
 
 #%%----------------------------------------------------------------------------
 def invert_index_to_file(word, filename, invert_index):
@@ -186,5 +186,4 @@ def search  (search_phrase
     # the lambda function sorts the list of tuples by the second element in the tuple, which is the weight
     # the reverse=True argument sorts the list in descending order
       
-
     return(sorted_result)

@@ -38,7 +38,7 @@ break-down by function tasks:
 - **query parsing:**
 O(q) where q is the number of words in the query
 - **calculating the weight multiplier of the query:**
-dictionary lookup is O(1) but the number of lookups is determined by O(q . f), where q is the number of words in the query anf f is the number of files in the directory
+dictionary lookup is O(1) but the number of lookups is determined by O(q . f), where q is the number of words in the query and f is the number of files in the directory
 - **calculating the result:** 
 the lookup is O(1) but it is done f times therefore, O(1 . f) = O(f) where f is the number of files in the directory
 - **sorting the result:** 
@@ -51,20 +51,26 @@ the .sorted() function has O(f log f) complexity where f is the number of files 
 the complexity of the search operation without the constant factors is **O(q + q . f + f + f . log f)**
 - Simplified Worst-Case Complexity
 Dominant Terms: 
-    - O(k⋅n) (query checks across all documents)
+    - O(k . n) (query checks across all documents)
     - O(n . log n) (sorting results).
 
-_**Therefore, the simplified complexity of the search operation is O(k ⋅ n + n . log n).**_
+_**Therefore, the simplified complexity of the search operation is O(q ⋅ f + f . log f).**_
 
 ### Big-O complexity of a brute force search operation: 
+this would involve having to search through every word in every file for each word in the query.
+**overall:**
+the complexity of the search operation without the constant factors is **O(q . n . f)**
+- having n in the complexity is likely to effect the performance significantly as the in most cases n will be the largest variable
 
 
 # B: Choice of Data Structures
-Explain and justify your choice of data structures.
-
 ## Your Answer
-...
+Dictionaries where chosen to store all the output file variables as they provide a lookup time of O(1). A list would have ben impractical as the search time would be O(n), where n is the number of elements in the list and would have introduced unnecessary looping to the code.
+Since the nature of a search engine is to match queries to documents, it made sense to use dictionaries as they provide key-value pairs.
 
+Lists were used to store the words in the files as they needed to be iterated over before being indexed and they also needed to be mutable for the purpose of parsing and adding the words from the each line.
+
+the sorted_result wa processed as a list of tuples (result.items()), where the tuple contained (file_name, weight). This was done so that the results could be sorted by weight of the file (handled by x: x[1] in the lambda function) and the file_name could be printed in print_result()
 
 # C: Discuss extra features, if any:
 If you implemented any extra feature on top of the requirements noted in this hanadout, briefly describe them here.
