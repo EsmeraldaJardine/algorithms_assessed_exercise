@@ -35,19 +35,26 @@ overall the complexity of the indexing operation is O(n) where n is the number o
 
 Big-O complexity of a search operation:
 break-down by function tasks:
-query parsing: O(q) where q is the number of words in the query
-calculating the weight multiplier of the query: dictionary lookup is O(1) but the number of lookups is determined by O(q . f), where q is the number of words in the query anf f is the number of files in the directory
-calculating the result: the lookup is O(1) but it is done f times therefore, O(1 . f) = O(f) where f is the number of files in the directory
-sorting the result: the .sorted() function has O(f log f) complexity where f is the number of files in the result
-    further look at .sorted() function:
-    this function uses the Timsort algorithm which is a hybrid merge sort and insertion sort algorithm. In the worst case, it can only use merge sort which has O(f . log f). 
-    Merge sort essentially halves the problem size at each step (hence O(log f)), and then merges the results together (hence O(f)).
+- query parsing: 
+O(q) where q is the number of words in the query
+- calculating the weight multiplier of the query: 
+dictionary lookup is O(1) but the number of lookups is determined by O(q . f), where q is the number of words in the query anf f is the number of files in the directory
+- calculating the result: 
+the lookup is O(1) but it is done f times therefore, O(1 . f) = O(f) where f is the number of files in the directory
+- sorting the result: 
+the .sorted() function has O(f log f) complexity where f is the number of files in the result
+    - further look at .sorted() function:
+        this function uses the Timsort algorithm which is a hybrid merge sort and insertion sort algorithm. In the worst case, it can only use merge sort which has O(f . log f). 
+        Merge sort essentially halves the problem size at each step (hence O(log f)), and then merges the results together (hence O(f)).
 
-overall the complexity of the search operation without the constant factors is
- O(q + q .f + f + f . log f)  
- Simplified Worst-Case Complexity
+- overall:
+the complexity of the search operation without the constant factors is
+O(q + q .f + f + f . log f)  
+- Simplified Worst-Case Complexity
 Dominant Terms: 
-O(k⋅n) (query checks across all documents) and O(n . log n) (sorting results).
+    - O(k⋅n) (query checks across all documents)
+    - O(n . log n) (sorting results).
+
 Therefore, the simplified complexity of the search operation is O(k ⋅ n + n . log n).
 
 Big-O complexity of a brute force search operation: 

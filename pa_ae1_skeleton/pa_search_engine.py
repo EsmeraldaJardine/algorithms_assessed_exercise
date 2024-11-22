@@ -87,7 +87,7 @@ def parse_line(line):
     return(list_of_words)
 
 #%%----------------------------------------------------------------------------
-def extract_file_lines(filepath):
+def extract_file_words(filepath):
     lines = []
     with open(filepath, 'r', encoding="utf-8") as f:
         for line in f:
@@ -128,7 +128,7 @@ def index_file  (filename
         the parameters forward_index, invert_index, term_freq, doc_rank are all dictionaries to be populated 
     """ 
     start = timer()
-    file_words = extract_file_lines(filepath) #might want to change the name of this function as it extracts words not lines
+    file_words = extract_file_words(filepath) 
    
     forward_index[filename] = file_words
     doc_rank[filename] = 1 / len(file_words)
@@ -167,14 +167,14 @@ def search  (search_phrase
     result = {}
     
     for filename in forward_index.keys():
-            weight_multiplier = 1
-            for word in query_words:
-                if word not in term_freq[filename] or word not in inv_doc_freq:
-                    weight_multiplier = 0
-                    break
-                    #check to avoid key errors when word is not in term_freq or inv_doc_freq
-                weight_multiplier *= term_freq[filename][word] * inv_doc_freq[word]
-            result[filename] = weight_multiplier * doc_rank[filename] 
+        weight_multiplier = 1
+        for word in query_words:
+            if word not in term_freq[filename] or word not in inv_doc_freq:
+                weight_multiplier = 0
+                break
+                #check to avoid key errors when word is not in term_freq or inv_doc_freq
+            weight_multiplier *= term_freq[filename][word] * inv_doc_freq[word]
+        result[filename] = weight_multiplier * doc_rank[filename] 
             # add a break statement to break out of the loop if the word is not in the term_freq or inv_doc_freq
             # it is not clearly stated in the pdf for this project but the search requires the WHOLE
             # query to be present in the document for it to display in the results
