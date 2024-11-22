@@ -67,11 +67,7 @@ def sanitize_word(word):
     Removes all non ascii characters from a given word 
     ^ does this mean remove all non-ascii characters from a word or only keep alphanumeric characters?
     """    
-    new_word = ''
-    word = word.lower()
-    new_word = ''.join(filter(str.isalnum, word))
-
-    return(new_word)
+    return ''.join(filter(str.isalnum, word.lower()))
 
 #%%----------------------------------------------------------------------------
 def parse_line(line):
@@ -96,17 +92,13 @@ def extract_file_lines(filepath):
     with open(filepath, 'r', encoding="utf-8") as f:
         for line in f:
             sanitized_line = parse_line(line)
-            if sanitized_line: #check if the line is not empty
-                for word in sanitized_line:
-                    lines.append(word)
+            if sanitized_line:  # Check if the sanitized line is not empty
+                lines.extend(sanitized_line)
     return(lines)
 
 #%%----------------------------------------------------------------------------
 def invert_index_to_file(word, filename, invert_index):
-    if word not in invert_index:
-            invert_index[word] = []
-    if filename not in invert_index[word]:
-        invert_index[word].append(filename) # can maybe clean this up
+    invert_index.setdefault(word, []).append(filename)
 
 #%%----------------------------------------------------------------------------
 def term_freq_to_file(word, individual_word_count):
@@ -175,16 +167,14 @@ def search  (search_phrase
     result = {}
     
     for filename in forward_index.keys():
-        weight_multiplier = 1
-        for word in query_words:
-            if word in term_freq[filename] and word in inv_doc_freq:
-                #check to avoid key errors when word is not in term_freq or inv_doc_freq
+            weight_multiplier = 1
+            for word in query_words:
+                if word not in term_freq[filename] or word not in inv_doc_freq:
+                    weight_multiplier = 0
+                    break
+                    #check to avoid key errors when word is not in term_freq or inv_doc_freq
                 weight_multiplier *= term_freq[filename][word] * inv_doc_freq[word]
-
-                result[filename] = weight_multiplier * doc_rank[filename]
-            else:
-                result[filename] = 0
-                break
+            result[filename] = weight_multiplier * doc_rank[filename] 
             # add a break statement to break out of the loop if the word is not in the term_freq or inv_doc_freq
             # it is not clearly stated in the pdf for this project but the search requires the WHOLE
             # query to be present in the document for it to display in the results
